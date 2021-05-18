@@ -34,3 +34,7 @@ language.settings.xml
 
 #wavelib-specific
 denoised.txt
+
+.ccls-cache/
+
+build/
