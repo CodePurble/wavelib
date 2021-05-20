@@ -13,7 +13,7 @@ void gauss(int N,int p,double lb,double ub,double *psi,double *t);
 
 void mexhat(int N,double lb,double ub,double *psi,double *t);
 
-void morlet(int N,double lb,double ub,double *psi,double *t);  
+void morlet(int N,double lb,double ub,double *psi,double *t);
 
 
 #ifdef __cplusplus
