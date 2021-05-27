@@ -1,33 +1,8 @@
 #Folders Ignore
-Bin/
-Testing/
 .vscode/
-
-#cmake ignore
-CMakeCache.txt
-CMakeFiles/
-CMakeScripts/
-Makefile/
-cmake_install.cmake
-install_manifest.txt
-CTestTestfile.cmake
-Makefile
 
 #yml
 *.yml
-
-#Compiled
-*.a
-*.o
-*.lib
-*.so
-*.exe
-*.dll
-
-#Eclipse
-.project
-.cproject
-language.settings.xml
 
 #tcl
 *.tcl
@@ -38,3 +13,5 @@ denoised.txt
 .ccls-cache/
 
 build/
+bin/
+compile_commands.json

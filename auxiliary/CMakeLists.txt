@@ -1,12 +1,10 @@
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-set(SOURCE_FILES denoise.c
+add_library(wauxlib STATIC
+    denoise.c
     waux.c
+    waux.h
     )
-
-set(HEADER_FILES waux.h)
-
-add_library(wauxlib STATIC ${SOURCE_FILES} ${HEADER_FILES})
 
 target_link_libraries(wauxlib wavelib)
 

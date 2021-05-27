@@ -1,4 +1,4 @@
-#include "../header/wauxlib.h"
+#include "wauxlib.h"
 #include "waux.h"
 
 int compare_double(const void* a, const void* b)

@@ -1,41 +1,82 @@
-cmake_minimum_required(VERSION 2.8.0 FATAL_ERROR)
+# cmake_minimum_required(VERSION 2.8.0 FATAL_ERROR)
+#
+# set(PROJECT_NAME wavelib)
+# project(${PROJECT_NAME} C)
+#
+# include(GNUInstallDirs)
+#
+# # src root path
+# set(WAVELIB_SRC_ROOT ${PROJECT_SOURCE_DIR} CACHE PATH "Wavelib source root")
+# # binary output by default
+# set(COMMON_BIN_PATH ${CMAKE_BINARY_DIR}/Bin)
+# set(LIBRARY_OUTPUT_PATH ${COMMON_BIN_PATH}/${CMAKE_BUILD_TYPE})
+# set(EXECUTABLE_OUTPUT_PATH ${COMMON_BIN_PATH}/${CMAKE_BUILD_TYPE})
+# # set where to find additional cmake modules if any
+# set(CMAKE_MODULE_PATH ${WAVELIB_SRC_ROOT}/cmake ${CMAKE_MODULE_PATH})
+#
+#
+# set(WAVELIB_VERSION "1.0.0" CACHE STRING "Wavelib version" FORCE)
+# message(">>> Building Wavelib version: ${WAVELIB_VERSION}")
+# message(">>> EXECUTABLE_OUTPUT_PATH = ${EXECUTABLE_OUTPUT_PATH}")
+#
+# option(BUILD_UT "Enable Unit test" OFF)
+# option(BUILD_TEST "Enable tests" OFF)
+#
+# # cleanup prefix lib for Unix-like OSes
+# set(CMAKE_SHARED_MODULE_PREFIX)
+#
+# # install target to this folder by default
+# set(WAVELIB_BINARY_DIR ${WAVELIB_SRC_ROOT}/bin)
+# if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+#     set(CMAKE_INSTALL_PREFIX "${WAVELIB_BINARY_DIR}" CACHE PATH "default install path" FORCE)
+# endif()
+#
+# # make include globaly visible
+# set(PROJECT_WIDE_INCLUDE ${WAVELIB_SRC_ROOT}/header)
+# include_directories(${PROJECT_WIDE_INCLUDE})
+#
+# include_directories(${COMMON_BIN_PATH})
+#
+# if(BUILD_UT)
+#     include(CTest)
+#     enable_testing()
+#     enable_language(CXX)
+#     add_subdirectory(unitTests)
+# endif()
+#
+# if(BUILD_TEST)
+#     add_subdirectory(test)
+# endif()
+#
+# add_subdirectory(src)
+#
+# install(DIRECTORY ${WAVELIB_SRC_ROOT}/header/
+#     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+#     FILES_MATCHING PATTERN "*.h")
+cmake_minimum_required(VERSION 3.10)
+project(wavelib C)
 
-set(PROJECT_NAME wavelib)
-project(${PROJECT_NAME} C)
+set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+include_directories(include)
 
-include(GNUInstallDirs)
+add_library(wavelib STATIC
+    ${SOURCE_DIR}/conv.c
+    ${SOURCE_DIR}/cwt.c
+    ${SOURCE_DIR}/cwtmath.c
+    ${SOURCE_DIR}/hsfft.c
+    ${SOURCE_DIR}/real.c
+    ${SOURCE_DIR}/wavefilt.c
+    ${SOURCE_DIR}/wavefunc.c
+    ${SOURCE_DIR}/wavelib.c
+    ${SOURCE_DIR}/wtmath.c
+    )
 
-# src root path
-set(WAVELIB_SRC_ROOT ${PROJECT_SOURCE_DIR} CACHE PATH "Wavelib source root")
-# binary output by default
-set(COMMON_BIN_PATH ${CMAKE_BINARY_DIR}/Bin)
-set(LIBRARY_OUTPUT_PATH ${COMMON_BIN_PATH}/${CMAKE_BUILD_TYPE})
-set(EXECUTABLE_OUTPUT_PATH ${COMMON_BIN_PATH}/${CMAKE_BUILD_TYPE})
-# set where to find additional cmake modules if any
-set(CMAKE_MODULE_PATH ${WAVELIB_SRC_ROOT}/cmake ${CMAKE_MODULE_PATH})
+target_link_libraries(wavelib PUBLIC m) # link math.h
 
-
-set(WAVELIB_VERSION "1.0.0" CACHE STRING "Wavelib version" FORCE)
-message(">>> Building Wavelib version: ${WAVELIB_VERSION}")
-message(">>> EXECUTABLE_OUTPUT_PATH = ${EXECUTABLE_OUTPUT_PATH}")
-
+option(BUILD_AUX "Enable auxiliary" OFF)
 option(BUILD_UT "Enable Unit test" OFF)
 option(BUILD_TEST "Enable tests" OFF)
-
-# cleanup prefix lib for Unix-like OSes
-set(CMAKE_SHARED_MODULE_PREFIX)
-
-# install target to this folder by default
-set(WAVELIB_BINARY_DIR ${WAVELIB_SRC_ROOT}/bin)
-if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set(CMAKE_INSTALL_PREFIX "${WAVELIB_BINARY_DIR}" CACHE PATH "default install path" FORCE)
-endif()
-
-# make include globaly visible
-set(PROJECT_WIDE_INCLUDE ${WAVELIB_SRC_ROOT}/header)
-include_directories(${PROJECT_WIDE_INCLUDE})
-
-include_directories(${COMMON_BIN_PATH})
 
 if(BUILD_UT)
     include(CTest)
@@ -46,11 +87,9 @@ endif()
 
 if(BUILD_TEST)
     add_subdirectory(test)
+    add_subdirectory(auxiliary)
 endif()
 
-add_subdirectory(src)
-add_subdirectory(auxiliary)
-
-install(DIRECTORY ${WAVELIB_SRC_ROOT}/header/
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-    FILES_MATCHING PATTERN "*.h")
+if(BUILD_AUX)
+    add_subdirectory(auxiliary)
+endif()

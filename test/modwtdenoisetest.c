@@ -3,7 +3,7 @@
 #include <string.h>
 #include <math.h>
 
-#include "../header/wauxlib.h"
+#include "wauxlib.h"
 
 static double rmse(int N,double *x,double *y)
 {
