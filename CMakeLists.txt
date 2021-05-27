@@ -19,7 +19,8 @@ set(WAVELIB_VERSION "1.0.0" CACHE STRING "Wavelib version" FORCE)
 message(">>> Building Wavelib version: ${WAVELIB_VERSION}")
 message(">>> EXECUTABLE_OUTPUT_PATH = ${EXECUTABLE_OUTPUT_PATH}")
 
-option(BUILD_UT "Enable Unit test" ON)
+option(BUILD_UT "Enable Unit test" OFF)
+option(BUILD_TEST "Enable tests" OFF)
 
 # cleanup prefix lib for Unix-like OSes
 set(CMAKE_SHARED_MODULE_PREFIX)
@@ -34,9 +35,6 @@ endif()
 set(PROJECT_WIDE_INCLUDE ${WAVELIB_SRC_ROOT}/header)
 include_directories(${PROJECT_WIDE_INCLUDE})
 
-
-
-
 include_directories(${COMMON_BIN_PATH})
 
 if(BUILD_UT)
@@ -46,9 +44,12 @@ if(BUILD_UT)
     add_subdirectory(unitTests)
 endif()
 
+if(BUILD_TEST)
+    add_subdirectory(test)
+endif()
+
 add_subdirectory(src)
 add_subdirectory(auxiliary)
-add_subdirectory(test) 
 
 install(DIRECTORY ${WAVELIB_SRC_ROOT}/header/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
