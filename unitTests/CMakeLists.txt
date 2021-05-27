@@ -1,3 +1,2 @@
-
-add_subdirectory(wavelibBoostTests) 
+add_subdirectory(wavelibBoostTests)
 

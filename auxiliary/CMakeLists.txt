@@ -1,8 +1,8 @@
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 set(SOURCE_FILES denoise.c
-				 waux.c
-)
+    waux.c
+    )
 
 set(HEADER_FILES waux.h)
 

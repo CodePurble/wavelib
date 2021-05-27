@@ -43,6 +43,6 @@ add_executable(modwt2test modwt2test.c)
 target_link_libraries(modwt2test wavelib)
 
 set_target_properties(cwttest dwttest swttest modwttest dwpttest wtreetest denoisetest modwtdenoisetest dwt2test swt2test modwt2test
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/test"
-        )
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/test"
+    )
