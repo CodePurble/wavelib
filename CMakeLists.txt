@@ -4,9 +4,6 @@ project(wavelib C)
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# https://sodocumentation.net/cmake/topic/1443/hierarchical-project
-target_include_directories(${PROJECT_NAME} PUBLIC include)
-
 add_library(wavelib STATIC
     ${SOURCE_DIR}/conv.c
     ${SOURCE_DIR}/cwt.c
@@ -18,6 +15,9 @@ add_library(wavelib STATIC
     ${SOURCE_DIR}/wavelib.c
     ${SOURCE_DIR}/wtmath.c
     )
+
+# https://sodocumentation.net/cmake/topic/1443/hierarchical-project
+target_include_directories(wavelib PUBLIC include)
 
 target_link_libraries(wavelib PUBLIC m) # link math.h
 
